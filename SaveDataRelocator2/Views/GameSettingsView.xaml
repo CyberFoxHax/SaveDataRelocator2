@@ -1,0 +1,66 @@
+﻿<UserControl x:Class="SaveDataRelocator2.Views.GameSettingsView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <StackPanel>
+        <Border Height="60" Background="{StaticResource GreenBrush}" Padding="5" CornerRadius="5" Margin="5" VerticalAlignment="Top">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30*"/>
+                    <RowDefinition Height="70*"/>
+                </Grid.RowDefinitions>
+                <TextBlock Grid.Row="0" Text="Filename: (not required)" Foreground="White" FontWeight="Bold" />
+                <TextBox x:Name="Filename" Grid.Row="1" Margin="0,5,0,0" Text="Crank" VerticalContentAlignment="Center" />
+            </Grid>
+        </Border>
+        <Border Height="60" Background="{StaticResource GreenBrush}" Padding="5" CornerRadius="5" Margin="5" VerticalAlignment="Top">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30*"/>
+                    <RowDefinition Height="70*"/>
+                </Grid.RowDefinitions>
+                <TextBlock Grid.Row="0" Text="Executable location:" Foreground="White" FontWeight="Bold" />
+                <TextBox x:Name="ExecutablePath" Grid.Row="1" Margin="0,5,0,0" Text="E:\Games\Crank\crank.exe" VerticalContentAlignment="Center" />
+            </Grid>
+        </Border>
+        <Border Height="60" Background="{StaticResource GreenBrush}" Padding="5" CornerRadius="5" Margin="5" VerticalAlignment="Top">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30*"/>
+                    <RowDefinition Height="70*"/>
+                </Grid.RowDefinitions>
+                <TextBlock Grid.Row="0" Text="SaveDataPath:" Foreground="White" FontWeight="Bold" />
+                <TextBox x:Name="SaveDataPath" Grid.Row="1" Margin="0,5,0,0" Text="%appdata%\Steamapps\Crank" VerticalContentAlignment="Center" />
+            </Grid>
+        </Border>
+        <Border Height="60" Background="{StaticResource GreenBrush}" Padding="5" CornerRadius="5" Margin="5" VerticalAlignment="Top">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30*"/>
+                    <RowDefinition Height="70*"/>
+                </Grid.RowDefinitions>
+                <TextBlock Grid.Row="0" Text="Backup location: (?)" Foreground="White" FontWeight="Bold" />
+                <TextBox x:Name="BackupDataPath" Grid.Row="1" Margin="0,5,0,0" Text="D:\Dropbox\GameSaves\Crank" VerticalContentAlignment="Center" />
+            </Grid>
+        </Border>
+        <StackPanel Orientation="Horizontal">
+            <Button x:Name="ButtonSave" Margin="5,10,0,0" HorizontalAlignment="Left" Content="Save" Background="{StaticResource GreenBrush}" Foreground="White" FontSize="20" Padding="10,5" BorderBrush="{x:Null}" BorderThickness="0">
+                <Button.Resources>
+                    <Style TargetType="Border">
+                        <Setter Property="CornerRadius" Value="5" />
+                    </Style>
+                </Button.Resources>
+            </Button>
+            <Button x:Name="CreateShortcut" Margin="5,10,0,0" HorizontalAlignment="Left" Content="Create shortcut" Background="{StaticResource GreenBrush}" Foreground="White" FontSize="20" Padding="10,5" BorderBrush="{x:Null}" BorderThickness="0">
+                <Button.Resources>
+                    <Style TargetType="Border">
+                        <Setter Property="CornerRadius" Value="5" />
+                    </Style>
+                </Button.Resources>
+            </Button>
+        </StackPanel>
+    </StackPanel>
+</UserControl>

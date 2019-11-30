@@ -1,0 +1,10 @@
+﻿<Application x:Class="SaveDataRelocator2.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Application.Resources>
+
+        <SolidColorBrush x:Key="RedBrush" Color="#FFC42626" />
+        <SolidColorBrush x:Key="GreenBrush" Color="#FF599C3D" />
+        <SolidColorBrush x:Key="BlueBrush" Color="#FF1D74CA" />
+    </Application.Resources>
+</Application>
