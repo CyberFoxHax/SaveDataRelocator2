@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Linq;
-using System.IO;
 using System.Windows;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -9,18 +7,8 @@ namespace SaveDataRelocator2
 {
     public partial class App : Application {
 
-        public const string ConfigFolder = "SaveLocations";
-        public const string AppConfig = "Config.json";
-        public const string ShortcutsCache = "ShortcutsCache.json";
-
         public App() {
-            if (Directory.Exists(ConfigFolder) == false)
-                Directory.CreateDirectory(ConfigFolder);
-            if (File.Exists(AppConfig) == false)
-                File.CreateText(AppConfig).Dispose();
-            if (File.Exists(ShortcutsCache) == false)
-                File.CreateText(ShortcutsCache).Dispose();
-
+            ConfigManager.Initialize();
             var args = Environment.GetCommandLineArgs();
 
             if (args.Length == 1) {

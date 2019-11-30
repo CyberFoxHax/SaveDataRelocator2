@@ -8,9 +8,11 @@ namespace SaveDataRelocator2.Views
         public ConfigView() {
             InitializeComponent();
 
-            if (System.ComponentModel.DesignerProperties.GetIsInDesignMode(this) == false) {
-                BackupPath.Text = "";
-            }
+            if (System.ComponentModel.DesignerProperties.GetIsInDesignMode(this))
+                return;
+
+            _dataModel = ConfigManager.LoadAppConfig() ?? new DataModels.ApplicationConfig();
+            BackupPath.Text = "";
             Loaded += OnLoaded;
             ButtonSave.Click += ButtonSave_Click;
         }
@@ -19,7 +21,6 @@ namespace SaveDataRelocator2.Views
         private DataModels.ApplicationConfig _dataModel;
 
         private void OnLoaded(object sender, RoutedEventArgs e) {
-            _dataModel = DataContext as DataModels.ApplicationConfig;
             if (_dataModel == null)
                 return;
             BackupPath.Text = _dataModel.BackupDataPath;
@@ -27,7 +28,7 @@ namespace SaveDataRelocator2.Views
 
         private void ButtonSave_Click(object sender, RoutedEventArgs e) {
             _dataModel.BackupDataPath = BackupPath.Text;
-            DataContext = _dataModel;
+            ConfigManager.SaveAppConfig(_dataModel);
             SaveClicked?.Invoke(_dataModel);
         }
     }

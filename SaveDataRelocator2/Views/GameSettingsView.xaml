@@ -12,16 +12,6 @@
                     <RowDefinition Height="30*"/>
                     <RowDefinition Height="70*"/>
                 </Grid.RowDefinitions>
-                <TextBlock Grid.Row="0" Text="Filename: (not required)" Foreground="White" FontWeight="Bold" />
-                <TextBox x:Name="Filename" Grid.Row="1" Margin="0,5,0,0" Text="Crank" VerticalContentAlignment="Center" />
-            </Grid>
-        </Border>
-        <Border Height="60" Background="{StaticResource GreenBrush}" Padding="5" CornerRadius="5" Margin="5" VerticalAlignment="Top">
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="30*"/>
-                    <RowDefinition Height="70*"/>
-                </Grid.RowDefinitions>
                 <TextBlock Grid.Row="0" Text="Executable location:" Foreground="White" FontWeight="Bold" />
                 <TextBox x:Name="ExecutablePath" Grid.Row="1" Margin="0,5,0,0" Text="E:\Games\Crank\crank.exe" VerticalContentAlignment="Center" />
             </Grid>
@@ -44,6 +34,16 @@
                 </Grid.RowDefinitions>
                 <TextBlock Grid.Row="0" Text="Backup location: (?)" Foreground="White" FontWeight="Bold" />
                 <TextBox x:Name="BackupDataPath" Grid.Row="1" Margin="0,5,0,0" Text="D:\Dropbox\GameSaves\Crank" VerticalContentAlignment="Center" />
+            </Grid>
+        </Border>
+        <Border Height="60" Background="{StaticResource GreenBrush}" Padding="5" CornerRadius="5" Margin="5" VerticalAlignment="Top">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30*"/>
+                    <RowDefinition Height="70*"/>
+                </Grid.RowDefinitions>
+                <TextBlock Grid.Row="0" Text="Config Filename: (not required)" Foreground="White" FontWeight="Bold" />
+                <TextBox x:Name="Filename" Grid.Row="1" Margin="0,5,0,0" Text="Crank" VerticalContentAlignment="Center" />
             </Grid>
         </Border>
         <StackPanel Orientation="Horizontal">

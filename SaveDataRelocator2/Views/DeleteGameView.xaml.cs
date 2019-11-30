@@ -20,12 +20,9 @@ namespace SaveDataRelocator2.Views
             ButtonOpenFolder.Click += ButtonOpenFolder_Click;
         }
 
-        public event Action<DataModels.GameRelocationConfig> Completed;
         public event Action<DeleteGameView> ViewCompleted;
-        private DataModels.GameRelocationConfig _dataModel;
 
-        private bool _hasConfig = true;
-        private bool _hasShortcuts = false;
+        private DataModels.GameRelocationConfig _dataModel;
 
         private void OnLoaded(object sender, RoutedEventArgs e) {
             _dataModel = DataContext as DataModels.GameRelocationConfig;
@@ -44,9 +41,9 @@ namespace SaveDataRelocator2.Views
             _dataModel.ExecutablePath = ExecutablePath.Text;
             DataContext = _dataModel;
 
-            _hasConfig = false;
-            if (_hasShortcuts == false)
-                ViewCompleted?.Invoke(this);
+            ConfigManager.DeleteGameConfig(_dataModel);
+
+            ViewCompleted?.Invoke(this);
         }
 
         private void ButtonOpenFolder_Click(object sender, RoutedEventArgs e) {
@@ -54,9 +51,7 @@ namespace SaveDataRelocator2.Views
         }
 
         private void ButtonDeleteShortcut_Click(object sender, RoutedEventArgs e) {
-            _hasShortcuts = false;
-            if (_hasConfig == false)
-                ViewCompleted?.Invoke(this);
+            throw new NotImplementedException();
         }
     }
 }

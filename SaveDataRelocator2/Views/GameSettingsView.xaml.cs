@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -30,7 +31,10 @@ namespace SaveDataRelocator2.Views
             _dataModel = DataContext as DataModels.GameRelocationConfig;
             if (_dataModel == null)
                 return;
-            Filename.Text = _dataModel.Filename;
+            if (_dataModel.Filename == null)
+                return;
+            if(_dataModel.Filename != Path.GetFileName(_dataModel.ExecutablePath).Replace(".exe", ""))
+                Filename.Text = _dataModel.Filename;
             SaveDataPath.Text = _dataModel.SaveDataPath;
             BackupDataPath.Text = _dataModel.BackupDataPath;
             ExecutablePath.Text = _dataModel.ExecutablePath;
@@ -41,7 +45,13 @@ namespace SaveDataRelocator2.Views
             _dataModel.SaveDataPath = SaveDataPath.Text;
             _dataModel.BackupDataPath = BackupDataPath.Text;
             _dataModel.ExecutablePath = ExecutablePath.Text;
+            if (string.IsNullOrEmpty(_dataModel.Filename))
+                _dataModel.Filename = Path.GetFileName(_dataModel.ExecutablePath).Replace(".exe", "");
+
             DataContext = _dataModel;
+            ConfigManager.SaveGameConfig(_dataModel);
+
+
             SaveClicked?.Invoke(_dataModel);
         }
     }

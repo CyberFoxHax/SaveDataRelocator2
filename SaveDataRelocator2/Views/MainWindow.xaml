@@ -36,7 +36,7 @@
             </Grid.RowDefinitions>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                 <Button x:Name="ButtonDelete" Grid.Column="0" Content="Delete" Background="{StaticResource RedBrush}" />
-                <Button x:Name="ButtonConfig" Grid.Column="0" Content="Config" Background="{StaticResource BlueBrush}" />
+                <Button x:Name="ButtonConfig" Grid.Column="0" Content="Global" Background="{StaticResource BlueBrush}" />
                 <Button x:Name="ButtonNew" Grid.Column="0" Content="New" Background="{StaticResource GreenBrush}" />
             </StackPanel>
             <views:GamesList Grid.Row="1" x:Name="GamesList" />

@@ -13,7 +13,7 @@ namespace SaveDataRelocator2.Views
                 return;
 
             ListView.Items.Clear();
-            ListView.ItemsSource = new List<GamesListItemViewModel>();
+            ListView.ItemsSource = ConfigManager.LoadAllGameConfigs().Select(p=>new GamesListItemViewModel(p)).ToList();
             ListView.MouseUp += ListView_MouseUp;
         }
 
@@ -82,6 +82,8 @@ namespace SaveDataRelocator2.Views
         }
 
         public void RemoveItem(DataModels.GameRelocationConfig config) {
+            if (config == null)
+                throw new Exception("Paramter can't be null");
             var source = (List<GamesListItemViewModel>)ListView.ItemsSource;
             var item = source.FirstOrDefault(p => p.BackingData == config);
             if (item == null)
