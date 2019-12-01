@@ -51,7 +51,8 @@ namespace SaveDataRelocator2.Views
         }
 
         private void ButtonDeleteShortcut_Click(object sender, RoutedEventArgs e) {
-            throw new NotImplementedException();
+            ShortcutWrapper.Visibility = Visibility.Collapsed;
+            //throw new NotImplementedException();
         }
     }
 }

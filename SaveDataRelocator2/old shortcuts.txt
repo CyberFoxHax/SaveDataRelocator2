@@ -1,0 +1,43 @@
+"E:\Games\Brutal Legend\SaveDataRelocator.exe"
+"BrutalLegend.exe"
+"%appdata%\..\Roaming\Doublefine\BrutalLegend" 
+
+"E:\Games\Cuphead\SaveDataRelocator.exe"
+"Cuphead.exe"
+"%appdata%\..\Roaming\Cuphead" 
+
+"E:\Games\FORCED Slightly Better Edition\SaveDataRelocator.exe"
+"forced.exe"
+"%appdata%\..\Roaming\Steam\CODEX\249990" 
+
+"E:\Games\Gauntlet\binaries\SaveDataRelocator.exe"
+"gauntlet.lnk"
+"%appdata%\..\Roaming\Arrowhead\Gauntlet"
+
+"E:\Games\HELLDIVERS\binaries\x64\SaveDataRelocator.exe"
+"helldivers.lnk"
+"%appdata%\..\Roaming\Arrowhead\Helldivers"
+
+"E:\Games\LifeIsStrange\Life Is Strange\Binaries\Win32\SaveDataRelocator.exe"
+"LifeIsStrange.exe"
+"E:\Users\Jesus\Documents\My Games\Life Is Strange" 
+
+"H:\Games\Ni no Kuni II Revenant Kingdom The Lair of the Lost Lord\SaveDataRelocator.exe"
+"Nino2.exe"
+"C:\Users\Public\Documents\Steam" 
+
+"E:\Games\Overcooked 2 Surf n Turf\SaveDataRelocator.exe"
+"Overcooked2.exe"
+"%appdata%\..\LocalLow\Team17\Overcooked2" 
+
+"E:\Games\Just Cause 3\SaveDataRelocator.exe"
+"JustCause3.exe"
+"E:\Users\Hresus\Documents\Square Enix" 
+
+"H:\Games\GRIP Combat Racing Worlds in Collision\SaveDataRelocator.exe"
+"Grip.exe"
+"%appdata%\..\Local\Grip"
+
+"E:\Games\Redout\SaveDataRelocator.exe"
+"redout.exe"
+"%appdata%\..\Local\redout"

@@ -60,11 +60,13 @@ namespace SaveDataRelocator2.Views
             ContentPresenter.Content = null;
             GamesList.RemoveItem((DataModels.GameRelocationConfig)obj.DataContext);
             GamesList.Refresh();
+            ButtonDelete.Visibility = Visibility.Collapsed;
         }
 
         private void OnSaveClick(DataModels.GameRelocationConfig obj) {
             GamesList.Refresh();
             ContentPresenter.Content = null;
+            ButtonDelete.Visibility = Visibility.Collapsed;
         }
 
         private void AppConfigSaved(DataModels.ApplicationConfig obj) {
