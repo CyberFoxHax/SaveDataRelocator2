@@ -35,15 +35,15 @@ namespace SaveDataRelocator2.Views
                 return;
             if(_dataModel.Filename != Path.GetFileName(_dataModel.ExecutablePath).Replace(".exe", ""))
                 Filename.Text = _dataModel.Filename;
-            SaveDataPath.Text = _dataModel.SaveDataPath;
-            BackupDataPath.Text = _dataModel.BackupDataPath;
+            SaveDataPath.Text = _dataModel.RemoteDirectory;
+            BackupDataPath.Text = _dataModel.BackupDirectory;
             ExecutablePath.Text = _dataModel.ExecutablePath;
         }
 
         private void ButtonSave_Click(object sender, RoutedEventArgs e) {
             _dataModel.Filename = Filename.Text;
-            _dataModel.SaveDataPath = SaveDataPath.Text;
-            _dataModel.BackupDataPath = BackupDataPath.Text;
+            _dataModel.RemoteDirectory = SaveDataPath.Text;
+            _dataModel.BackupDirectory = BackupDataPath.Text;
             _dataModel.ExecutablePath = ExecutablePath.Text;
             if (string.IsNullOrEmpty(_dataModel.Filename))
                 _dataModel.Filename = Path.GetFileName(_dataModel.ExecutablePath).Replace(".exe", "");

@@ -7,31 +7,20 @@ namespace SaveDataRelocator2
 {
     public partial class App : Application {
 
-        public App() {
-            ConfigManager.Initialize();
-            var args = Environment.GetCommandLineArgs();
+        public const string HelpString = "Usage: -launch [file]\nfilename being the filename of the json config in the Configurations folder in the application directory";
 
+        public App() : this(Environment.GetCommandLineArgs()) {}
+
+        public App(string[] args) {
             if (args.Length == 1) {
+                ConfigManager.Initialize();
+                ShutdownMode = ShutdownMode.OnMainWindowClose;
                 StartupUri = new Uri("Views/MainWindow.xaml", UriKind.Relative);
                 return;
             }
+            ShutdownMode = ShutdownMode.OnExplicitShutdown;
 
-            if (args.Length % 2 == 1) {
-                if (Debugger.IsAttached)
-                    throw new Exception("Invalid arguments");
-                else
-                    Console.WriteLine("Invalid arguments");
-                return;
-            }
-
-            var argsDict = new Dictionary<string, string>();
-            for (var i = 0; i < args.Length; i+=2)
-                argsDict[args[i + 0]] = args[i + 1];
-
-            if (args[1] == "-launch") {
-                var key = args[2];
-
-            }
+            CommandLineEntry.Entry(args);
 
             Shutdown();
         }

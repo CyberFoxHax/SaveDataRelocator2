@@ -35,6 +35,8 @@ namespace SaveDataRelocator2 {
             var str = JsonConvert.SerializeObject(dataModel, Formatting.Indented);
             File.WriteAllText(Path.Combine(ConfigFolder, dataModel.Filename + ".json"), str);
 
+            if (_loadedGameConfigs == null)
+                return;
             foreach (var item in _loadedGameConfigs) {
                 if (item.Value != dataModel)
                     continue;
@@ -53,9 +55,13 @@ namespace SaveDataRelocator2 {
             File.Delete(Path.Combine(ConfigFolder, dataModel.Filename + ".json"));
         }
 
-        public static GameRelocationConfig LoadGameConfig(string filename) {
-            var obj = JsonConvert.DeserializeObject<GameRelocationConfig>(File.ReadAllText(filename));
-            obj.Filename = Path.GetFileName(filename).Replace(".json", "");
+        public static GameRelocationConfig LoadGameConfigFromName(string name) {
+            return LoadGameConfigFromPath(Path.Combine(ConfigFolder, name + ".json"));
+        }
+
+        public static GameRelocationConfig LoadGameConfigFromPath(string path) {
+            var obj = JsonConvert.DeserializeObject<GameRelocationConfig>(File.ReadAllText(path));
+            obj.Filename = Path.GetFileName(path).Replace(".json", "");
             return obj;
         }
 
@@ -63,7 +69,7 @@ namespace SaveDataRelocator2 {
             _loadedGameConfigs = Directory.EnumerateFiles(ConfigFolder)
                 .ToDictionary(
                     p=>Path.GetFileName(p).Replace(".json", ""),
-                    LoadGameConfig
+                    LoadGameConfigFromPath
                 );
 
             return _loadedGameConfigs.Values.ToList();

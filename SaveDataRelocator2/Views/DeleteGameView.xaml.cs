@@ -29,15 +29,15 @@ namespace SaveDataRelocator2.Views
             if (_dataModel == null)
                 return;
             Filename.Text = _dataModel.Filename;
-            SaveDataPath.Text = _dataModel.SaveDataPath;
-            BackupDataPath.Text = _dataModel.BackupDataPath;
+            SaveDataPath.Text = _dataModel.RemoteDirectory;
+            BackupDataPath.Text = _dataModel.BackupDirectory;
             ExecutablePath.Text = _dataModel.ExecutablePath;
         }
 
         private void ButtonDelete_Click(object sender, RoutedEventArgs e) {
             _dataModel.Filename = Filename.Text;
-            _dataModel.SaveDataPath = SaveDataPath.Text;
-            _dataModel.BackupDataPath = BackupDataPath.Text;
+            _dataModel.RemoteDirectory = SaveDataPath.Text;
+            _dataModel.BackupDirectory = BackupDataPath.Text;
             _dataModel.ExecutablePath = ExecutablePath.Text;
             DataContext = _dataModel;
 
