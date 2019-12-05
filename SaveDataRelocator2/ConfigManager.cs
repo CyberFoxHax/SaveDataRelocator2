@@ -1,5 +1,4 @@
-﻿using System;
-using SaveDataRelocator2.DataModels;
+﻿using SaveDataRelocator2.DataModels;
 using System.Linq;
 using System.IO;
 using Newtonsoft.Json;
@@ -8,27 +7,29 @@ using System.Collections.Generic;
 namespace SaveDataRelocator2 {
     public static class ConfigManager {
         public const string ConfigFolder = "Configurations";
-        public const string AppConfig = "Config.json";
-        public const string ShortcutsCache = "ShortcutsCache.json";
+        public const string GlobalConfig = "Config.json";
+        public const string RecentsData = "Recents.json";
 
         private static Dictionary<string, GameRelocationConfig> _loadedGameConfigs;
 
         public static void Initialize() {
             if (Directory.Exists(ConfigFolder) == false)
                 Directory.CreateDirectory(ConfigFolder);
-            if (File.Exists(AppConfig) == false)
-                File.CreateText(AppConfig).Dispose();
-            if (File.Exists(ShortcutsCache) == false)
-                File.CreateText(ShortcutsCache).Dispose();
+            if (File.Exists(GlobalConfig) == false)
+                File.CreateText(GlobalConfig).Dispose();
+            if (File.Exists(RecentsData) == false)
+                File.CreateText(RecentsData).Dispose();
         }
 
-        public static ApplicationConfig LoadAppConfig() {
-            return JsonConvert.DeserializeObject<ApplicationConfig>(File.ReadAllText(AppConfig));
+        public static ApplicationConfig LoadGlobalConfig() {
+            if(File.Exists(GlobalConfig))
+                return JsonConvert.DeserializeObject<ApplicationConfig>(File.ReadAllText(GlobalConfig));
+            return null;
         }
 
-        public static void SaveAppConfig(ApplicationConfig config) {
+        public static void SaveGlobalConfig(ApplicationConfig config) {
             var json = JsonConvert.SerializeObject(config, Formatting.Indented);
-            File.WriteAllText(AppConfig, json);
+            File.WriteAllText(GlobalConfig, json);
         }
 
         public static void SaveGameConfig(GameRelocationConfig dataModel) {
@@ -56,10 +57,15 @@ namespace SaveDataRelocator2 {
         }
 
         public static GameRelocationConfig LoadGameConfigFromName(string name) {
-            return LoadGameConfigFromPath(Path.Combine(ConfigFolder, name + ".json"));
+            var path = Path.Combine(ConfigFolder, name + ".json");
+            if(File.Exists(path))
+                return LoadGameConfigFromPath(Path.Combine(ConfigFolder, name + ".json"));
+            return null;
         }
 
         public static GameRelocationConfig LoadGameConfigFromPath(string path) {
+            if (File.Exists(path) == false)
+                return null;
             var obj = JsonConvert.DeserializeObject<GameRelocationConfig>(File.ReadAllText(path));
             obj.Filename = Path.GetFileName(path).Replace(".json", "");
             return obj;
@@ -75,13 +81,15 @@ namespace SaveDataRelocator2 {
             return _loadedGameConfigs.Values.ToList();
         }
 
-        public static ShortcutsCacheModel LoadShortcutsCache() {
-            return JsonConvert.DeserializeObject<ShortcutsCacheModel>(File.ReadAllText(AppConfig));
+        public static RecentModel LoadRecents() {
+            if(File.Exists(RecentsData))
+                return JsonConvert.DeserializeObject<RecentModel>(File.ReadAllText(RecentsData));
+            return null;
         }
 
-        public static void SaveShortcutsCache(ShortcutsCacheModel config) {
+        public static void SaveRecents(RecentModel config) {
             var json = JsonConvert.SerializeObject(config, Formatting.Indented);
-            File.WriteAllText(AppConfig, json);
+            File.WriteAllText(RecentsData, json);
         }
 
     }

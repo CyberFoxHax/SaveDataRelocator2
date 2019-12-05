@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.IO;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -23,6 +25,7 @@ namespace SaveDataRelocator2.Views
         public event Action<DeleteGameView> ViewCompleted;
 
         private DataModels.GameRelocationConfig _dataModel;
+        private string _detectedShortcutPath;
 
         private void OnLoaded(object sender, RoutedEventArgs e) {
             _dataModel = DataContext as DataModels.GameRelocationConfig;
@@ -32,6 +35,26 @@ namespace SaveDataRelocator2.Views
             SaveDataPath.Text = _dataModel.RemoteDirectory;
             BackupDataPath.Text = _dataModel.BackupDirectory;
             ExecutablePath.Text = _dataModel.ExecutablePath;
+
+            ShortcutWrapper.Visibility = Visibility.Collapsed;
+            var recents = ConfigManager.LoadRecents();
+            var missing = new List<string>();
+            foreach (var shortcutPath in recents.Paths) {
+                if (System.IO.File.Exists(shortcutPath) == false) {
+                    missing.Add(shortcutPath);
+                    continue;
+                }
+                var shell = new IWshRuntimeLibrary.WshShell();
+                var shortcut = (IWshRuntimeLibrary.IWshShortcut)shell.CreateShortcut(shortcutPath);
+                if (shortcut.Arguments == "-launch " + _dataModel.Filename) {
+                    ShortcutWrapper.Visibility = Visibility.Visible;
+                    _detectedShortcutPath = shortcutPath;
+                    break;
+                }
+            }
+            foreach (var item in missing)
+                recents.Paths.Remove(item);
+            ConfigManager.SaveRecents(recents);
         }
 
         private void ButtonDelete_Click(object sender, RoutedEventArgs e) {
@@ -47,12 +70,14 @@ namespace SaveDataRelocator2.Views
         }
 
         private void ButtonOpenFolder_Click(object sender, RoutedEventArgs e) {
-            throw new NotImplementedException();
+            var folder = Directory.GetParent(_detectedShortcutPath).FullName;
+            System.Diagnostics.Process.Start("explorer.exe", folder);
         }
 
         private void ButtonDeleteShortcut_Click(object sender, RoutedEventArgs e) {
             ShortcutWrapper.Visibility = Visibility.Collapsed;
-            //throw new NotImplementedException();
+            if(File.Exists(_detectedShortcutPath))
+                File.Delete(_detectedShortcutPath);
         }
     }
 }

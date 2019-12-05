@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 
 namespace SaveDataRelocator2 {
@@ -14,10 +13,6 @@ namespace SaveDataRelocator2 {
                     Console.WriteLine(App.HelpString);
                 return;
             }
-
-            var argsDict = new Dictionary<string, string>();
-            for (var i = 1; i < args.Length; i += 2)
-                argsDict[args[i + 0]] = args[i + 1];
 
             if (args[1] == "-launch") {
                 var configFilename = args[2];

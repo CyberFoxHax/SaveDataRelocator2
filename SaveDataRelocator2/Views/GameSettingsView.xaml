@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             d:DesignHeight="450" d:DesignWidth="440">
     <StackPanel>
         <Border Height="60" Background="{StaticResource GreenBrush}" Padding="5" CornerRadius="5" Margin="5" VerticalAlignment="Top">
             <Grid>
@@ -12,8 +12,21 @@
                     <RowDefinition Height="30*"/>
                     <RowDefinition Height="70*"/>
                 </Grid.RowDefinitions>
-                <TextBlock Grid.Row="0" Text="Executable location:" Foreground="White" FontWeight="Bold" />
-                <TextBox x:Name="ExecutablePath" Grid.Row="1" Margin="0,5,0,0" Text="E:\Games\Crank\crank.exe" VerticalContentAlignment="Center" />
+                <TextBlock Grid.Row="0" Text="Executable location: (?)" Foreground="White" FontWeight="Bold">
+                    <TextBlock.ToolTip>
+                        <TextBlock Foreground="Black">
+                            If you use a relative path the relative start will be from your Default Games Path
+                        </TextBlock>
+                    </TextBlock.ToolTip>
+                </TextBlock>
+                <Grid Grid.Row="1" Margin="0,5,0,0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition Width="50"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBox Grid.Column="0" x:Name="ExecutablePath" Text="E:\Games\Crank\crank.exe" VerticalContentAlignment="Center" />
+                    <Button Grid.Column="1" Content="..." x:Name="ButtonExecutablePathBrowse" Margin="1" Foreground="Black" BorderThickness="0" />
+                </Grid>
             </Grid>
         </Border>
         <Border Height="60" Background="{StaticResource GreenBrush}" Padding="5" CornerRadius="5" Margin="5" VerticalAlignment="Top">
@@ -22,8 +35,15 @@
                     <RowDefinition Height="30*"/>
                     <RowDefinition Height="70*"/>
                 </Grid.RowDefinitions>
-                <TextBlock Grid.Row="0" Text="SaveDataPath:" Foreground="White" FontWeight="Bold" />
-                <TextBox x:Name="SaveDataPath" Grid.Row="1" Margin="0,5,0,0" Text="%appdata%\Steamapps\Crank" VerticalContentAlignment="Center" />
+                <TextBlock Grid.Row="0" Text="Save data path:" Foreground="White" FontWeight="Bold" />
+                <Grid Grid.Row="1" Margin="0,5,0,0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition Width="50"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBox Grid.Column="0" x:Name="SaveDataPath" Text="%appdata%\Steamapps\Crank" VerticalContentAlignment="Center" />
+                    <Button Grid.Column="1" Content="..." x:Name="ButtonSaveDataPathBrowse" Margin="1" Foreground="Black" BorderThickness="0" />
+                </Grid>
             </Grid>
         </Border>
         <Border Height="60" Background="{StaticResource GreenBrush}" Padding="5" CornerRadius="5" Margin="5" VerticalAlignment="Top">
@@ -32,8 +52,21 @@
                     <RowDefinition Height="30*"/>
                     <RowDefinition Height="70*"/>
                 </Grid.RowDefinitions>
-                <TextBlock Grid.Row="0" Text="Backup location: (?)" Foreground="White" FontWeight="Bold" />
-                <TextBox x:Name="BackupDataPath" Grid.Row="1" Margin="0,5,0,0" Text="D:\Dropbox\GameSaves\Crank" VerticalContentAlignment="Center" />
+                <TextBlock Grid.Row="0" Text="Backup location: (?)" Foreground="White" FontWeight="Bold">
+                    <TextBlock.ToolTip>
+                        <TextBlock Foreground="Black">
+                            If you use a relative path the relative start will be from your Default Backup Path
+                        </TextBlock>
+                    </TextBlock.ToolTip>
+                </TextBlock>
+                <Grid Grid.Row="1" Margin="0,5,0,0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition Width="50"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBox x:Name="BackupDataPath"  Text="D:\Dropbox\GameSaves\Crank" VerticalContentAlignment="Center" />
+                    <Button Grid.Column="1" Content="..." x:Name="ButtonBackupLocationBrowse" Margin="1" Foreground="Black" BorderThickness="0" />
+                </Grid>
             </Grid>
         </Border>
         <Border Height="60" Background="{StaticResource GreenBrush}" Padding="5" CornerRadius="5" Margin="5" VerticalAlignment="Top">
@@ -42,7 +75,16 @@
                     <RowDefinition Height="30*"/>
                     <RowDefinition Height="70*"/>
                 </Grid.RowDefinitions>
-                <TextBlock Grid.Row="0" Text="Config Filename: (not required)" Foreground="White" FontWeight="Bold" />
+                <TextBlock Grid.Row="0" Text="Config Filename: (?) (not required)" Foreground="White" FontWeight="Bold">
+                    <TextBlock.ToolTip>
+                        <TextBlock Foreground="Black">
+                            This block is used for the name of the config .json file, and the shortcut name.<LineBreak />
+                            The shortcut can be changed manually though.<LineBreak />
+                            If left blank it will infer the name from the executable.<LineBreak />
+                            It's recommended to leave it blank.
+                        </TextBlock>
+                    </TextBlock.ToolTip>
+                </TextBlock>
                 <TextBox x:Name="Filename" Grid.Row="1" Margin="0,5,0,0" Text="Crank" VerticalContentAlignment="Center" />
             </Grid>
         </Border>

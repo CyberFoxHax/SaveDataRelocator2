@@ -11,22 +11,27 @@ namespace Tests {
                 Directory.Delete(remoteDir, true);
             if (Directory.Exists(backupDir))
                 Directory.Delete(backupDir, true);
+            if (Directory.Exists("C:\\TestMySharedGameData"))
+                Directory.Delete("C:\\TestMySharedGameData", true);
 
             Assert.IsTrue(Directory.Exists(backupDir) == false);
             Assert.IsTrue(Directory.Exists(remoteDir) == false);
+            Assert.IsTrue(Directory.Exists("C:\\TestMySharedGameData") == false);
         }
 
         [TestMethod]
         public void TestSimple() { 
-            ConfigManager.SaveAppConfig(new SaveDataRelocator2.DataModels.ApplicationConfig {
-                BackupDataPath = "C:\\MySharedGameData"
+            ConfigManager.SaveGlobalConfig(new SaveDataRelocator2.DataModels.ApplicationConfig {
+                BackupDefaultPath = "C:\\TestMySharedGameData"
             });
+            var currentPath = Directory.GetParent(System.Reflection.Assembly.GetExecutingAssembly().Location).FullName;
             var config = new SaveDataRelocator2.DataModels.GameRelocationConfig {
-                BackupDirectory = "C:\\MySharedGameData\\TestApplication",
-                ExecutablePath = "..\\..\\..\\TestApplication\\bin\\Debug\\TestApplication.exe",
+                BackupDirectory = "C:\\TestMySharedGameData\\TestApplication",
+                ExecutablePath = Path.Combine(currentPath, "..\\..\\..\\TestApplication\\bin\\Debug\\TestApplication.exe"),
                 RemoteDirectory = "%appdata%\\TestApplication",
                 Filename = "TestApplication"
             };
+            ConfigManager.Initialize();
             ConfigManager.SaveGameConfig(config);
             var remoteDir = System.Environment.ExpandEnvironmentVariables(config.RemoteDirectory);
             var backupDir = System.Environment.ExpandEnvironmentVariables(config.BackupDirectory);
@@ -39,15 +44,16 @@ namespace Tests {
 
         [TestMethod]
         public void TestSimpleRemoteExists() {
-            ConfigManager.SaveAppConfig(new SaveDataRelocator2.DataModels.ApplicationConfig {
-                BackupDataPath = "C:\\MySharedGameData"
+            ConfigManager.SaveGlobalConfig(new SaveDataRelocator2.DataModels.ApplicationConfig {
+                BackupDefaultPath = "C:\\TestMySharedGameData"
             });
             var config = new SaveDataRelocator2.DataModels.GameRelocationConfig {
-                BackupDirectory = "C:\\MySharedGameData\\TestApplication",
+                BackupDirectory = "C:\\TestMySharedGameData\\TestApplication",
                 ExecutablePath = "..\\..\\..\\TestApplication\\bin\\Debug\\TestApplication.exe",
                 RemoteDirectory = "%appdata%\\TestApplication",
                 Filename = "TestApplication"
             };
+            ConfigManager.Initialize();
             ConfigManager.SaveGameConfig(config);
             var remoteDir = System.Environment.ExpandEnvironmentVariables(config.RemoteDirectory);
             var backupDir = System.Environment.ExpandEnvironmentVariables(config.BackupDirectory);
@@ -61,20 +67,21 @@ namespace Tests {
 
         [TestMethod]
         public void TestSimpleBackupExists() {
-            ConfigManager.SaveAppConfig(new SaveDataRelocator2.DataModels.ApplicationConfig {
-                BackupDataPath = "C:\\MySharedGameData"
+            ConfigManager.SaveGlobalConfig(new SaveDataRelocator2.DataModels.ApplicationConfig {
+                BackupDefaultPath = "C:\\TestMySharedGameData"
             });
             var config = new SaveDataRelocator2.DataModels.GameRelocationConfig {
-                BackupDirectory = "C:\\MySharedGameData\\TestApplication",
+                BackupDirectory = "C:\\TestMySharedGameData\\TestApplication",
                 ExecutablePath = "..\\..\\..\\TestApplication\\bin\\Debug\\TestApplication.exe",
                 RemoteDirectory = "%appdata%\\TestApplication",
                 Filename = "TestApplication"
             };
+            ConfigManager.Initialize();
             ConfigManager.SaveGameConfig(config);
             var remoteDir = System.Environment.ExpandEnvironmentVariables(config.RemoteDirectory);
             var backupDir = System.Environment.ExpandEnvironmentVariables(config.BackupDirectory);
             CleanFolders(remoteDir, backupDir);
-            Directory.CreateDirectory("C:\\MySharedGameData");
+            Directory.CreateDirectory("C:\\TestMySharedGameData");
             CommandLineEntry.Entry(new[] { "SaveDataRelocator2.exe", "-launch", "TestApplication" });
             Assert.IsTrue(Directory.Exists(remoteDir) == false);
             Assert.IsTrue(Directory.Exists(backupDir));

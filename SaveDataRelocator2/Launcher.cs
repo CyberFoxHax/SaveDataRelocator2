@@ -1,5 +1,4 @@
-﻿using System;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using System.IO;
 using System.Reflection;
 
@@ -9,15 +8,24 @@ namespace SaveDataRelocator2
         public static void Launch(string configFilename) {
             var config = ConfigManager.LoadGameConfigFromName(configFilename);
             if (config == null) {
-                Console.WriteLine("Configuration: \"" + configFilename + "\" was not found");
-                Console.ReadLine();
+                System.Windows.MessageBox.Show("Config \""+configFilename+"\" was not found", "SaveDataRelocator2");
                 return;
             }
+            var exec = config.ExecutablePath;
+            var appConfig = ConfigManager.LoadGlobalConfig();
+            if(appConfig?.GamesDefaultPath != null && Path.IsPathRooted(exec) == false)
+                exec = Path.Combine(appConfig.GamesDefaultPath, exec);
+
+            if (File.Exists(exec) == false) {
+                System.Windows.MessageBox.Show("Executable \"" + exec + "\" was not found", "SaveDataRelocator2");
+                return;
+            }
+
             Relocator.CopyBackupToRemote(config);
             var localDir = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
             var process = new Process {
                 StartInfo = {
-                    FileName = config.ExecutablePath,
+                    FileName = exec,
                     WorkingDirectory = localDir,
                     Domain = localDir,
                     UseShellExecute = true

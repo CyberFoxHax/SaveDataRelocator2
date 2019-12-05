@@ -1,12 +1,3 @@
-command line entry
-
-program that holds for 2 seconds and closes
-
-
-if the file is in use or something, give an error and do nothing
-
-
-
 "E:\Games\Brutal Legend\SaveDataRelocator.exe"
 "BrutalLegend.exe"
 "%appdata%\..\Roaming\Doublefine\BrutalLegend" 
