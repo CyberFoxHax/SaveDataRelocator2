@@ -28,7 +28,6 @@ namespace SaveDataRelocator2.Views
             if (path == null)
                 return;
 
-
             var appdataPath = Environment.ExpandEnvironmentVariables("%appdata%");
             if (path.Contains(appdataPath))
                 path = path.Replace(appdataPath, "%appdata%");

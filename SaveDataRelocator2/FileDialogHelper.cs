@@ -56,7 +56,7 @@ namespace SaveDataRelocator2 {
                 Filters = {
                     new CommonFileDialogFilter {
                         DisplayName = "Executable",
-                        Extensions = { "*.exe" }
+                        Extensions = { "exe" }
                     }
                 },
                 Title = "Pick a Game executable",

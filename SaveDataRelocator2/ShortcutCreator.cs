@@ -33,7 +33,10 @@ namespace SaveDataRelocator2 {
                 System.IO.File.Delete(shortcutPath);
             var shell = new WshShell();
             var shortcut = (IWshShortcut)shell.CreateShortcut(shortcutPath);
-            shortcut.IconLocation = dataModel.ExecutablePath;
+            var execPath = dataModel.ExecutablePath;
+            if(Path.IsPathRooted(execPath)==false)
+                execPath = Path.Combine(ConfigManager.LoadGlobalConfig().GamesDefaultPath, execPath);
+            shortcut.IconLocation = execPath;
             shortcut.Description = "SaveDataRelocator2 shortcut";
             shortcut.TargetPath = Assembly.GetExecutingAssembly().Location;
             shortcut.WorkingDirectory = Directory.GetParent(shortcut.TargetPath).FullName;
