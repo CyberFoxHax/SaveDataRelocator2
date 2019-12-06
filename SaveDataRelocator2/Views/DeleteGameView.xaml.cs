@@ -70,13 +70,17 @@ namespace SaveDataRelocator2.Views
         }
 
         private void ButtonOpenFolder_Click(object sender, RoutedEventArgs e) {
-            var folder = Directory.GetParent(_detectedShortcutPath).FullName;
-            System.Diagnostics.Process.Start("explorer.exe", folder);
+            System.Diagnostics.Process.Start("explorer.exe", "/select,\""+ _detectedShortcutPath + "\"");
         }
 
         private void ButtonDeleteShortcut_Click(object sender, RoutedEventArgs e) {
             ShortcutWrapper.Visibility = Visibility.Collapsed;
-            if(File.Exists(_detectedShortcutPath))
+
+            var recents = ConfigManager.LoadRecents();
+            recents.Paths.Remove(_detectedShortcutPath);
+            ConfigManager.SaveRecents(recents);
+
+            if (File.Exists(_detectedShortcutPath))
                 File.Delete(_detectedShortcutPath);
         }
     }

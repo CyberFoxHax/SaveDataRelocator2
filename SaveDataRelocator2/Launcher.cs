@@ -21,7 +21,8 @@ namespace SaveDataRelocator2
                 return;
             }
 
-            Relocator.CopyBackupToRemote(config);
+            if (Relocator.CopyBackupToRemote(config) == false)
+                return;
             var localDir = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
             var process = new Process {
                 StartInfo = {
@@ -33,7 +34,8 @@ namespace SaveDataRelocator2
             };
             process.Start();
             process.WaitForExit();
-            Relocator.CopyRemoteToBackup(config);
+            if (Relocator.CopyRemoteToBackup(config) == false)
+                return;
         }
     }
 }

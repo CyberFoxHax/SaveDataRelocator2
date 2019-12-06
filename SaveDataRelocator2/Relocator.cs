@@ -4,15 +4,7 @@ namespace SaveDataRelocator2
 {
     public static class Relocator {
 
-        private static string GetTempDirectoryPath(string original) {
-            var info = new DirectoryInfo(original);
-            return Path.Combine(
-                info.Parent.FullName,
-                "_" + info.Name
-            );
-        }
-
-        public static void CopyBackupToRemote(DataModels.GameRelocationConfig config) {
+        public static bool CopyBackupToRemote(DataModels.GameRelocationConfig config) {
             var remoteDir = System.Environment.ExpandEnvironmentVariables(config.RemoteDirectory);
             var backupDir = System.Environment.ExpandEnvironmentVariables(config.BackupDirectory);
 
@@ -25,22 +17,38 @@ namespace SaveDataRelocator2
             }
 
             var tempDir = GetTempDirectoryPath(remoteDir);
-            if (Directory.Exists(tempDir))
-                Directory.Delete(tempDir, true);
+            try {
+                if (Directory.Exists(tempDir))
+                    Directory.Delete(tempDir, true);
+            }
+            catch {
+                if (Directory.Exists(remoteDir)) {
+                    System.Windows.MessageBox.Show("Unable to delete temp directory, Unable to continue", "SaveDataRelocator2");
+                    return false;
+                }
+            }
 
-            if (Directory.Exists(remoteDir)) 
-                Directory.Move(
-                    remoteDir,
-                    tempDir
-                );
+            try {
+                if (Directory.Exists(remoteDir)) 
+                    Directory.Move(
+                        remoteDir,
+                        tempDir
+                    );
+            }
+            catch {
+                System.Windows.MessageBox.Show("Remote directory already exists and is in use. Unable to continue.", "SaveDataRelocator2");
+                return false;
+            }
 
             if(Directory.Exists(backupDir))
                 DirectoryUtils.DirectoryCopy(backupDir, remoteDir);
+            return true;
         }
 
-        public static void CopyRemoteToBackup(DataModels.GameRelocationConfig config) {
+        public static bool CopyRemoteToBackup(DataModels.GameRelocationConfig config) {
             var remoteDir = System.Environment.ExpandEnvironmentVariables(config.RemoteDirectory);
             var backupDir = System.Environment.ExpandEnvironmentVariables(config.BackupDirectory);
+            var tempPath = GetTempDirectoryPath(remoteDir);
 
             var appConfig = ConfigManager.LoadGlobalConfig();
             if (Path.IsPathRooted(backupDir) == false) {
@@ -51,21 +59,42 @@ namespace SaveDataRelocator2
             }
             if (Directory.Exists(remoteDir) == false) {
                 System.Windows.MessageBox.Show("Remote data is still absent after execution has completed.\nYou've most likely typed the wrong \"Save Data Path\" for \"" + config.Filename + "\"", "SaveDataRelocator2");
-                return;
+                if (Directory.Exists(tempPath))
+                    Directory.Move(
+                        tempPath,
+                        remoteDir
+                    );
+                return false;
             }
 
-            if (Directory.Exists(backupDir))
-                Directory.Delete(backupDir, true);
+            try {
+                if (Directory.Exists(backupDir))
+                    Directory.Delete(backupDir, true);
+            }
+            catch {
+                System.Windows.MessageBox.Show("Unable to delete the backup folder.\nRemote data was not backed up, please resolve this by yourself", "SaveDataRelocator2");
+                System.Diagnostics.Process.Start("explorer.exe", "/select,\"" + backupDir + "\"");
+                System.Diagnostics.Process.Start("explorer.exe", "/select,\"" + remoteDir + "\"");
+                return false;
+            }
+            
 
             DirectoryUtils.DirectoryCopy(remoteDir, backupDir);
             Directory.Delete(remoteDir, true);
-            var tempPath = GetTempDirectoryPath(remoteDir);
-            if (Directory.Exists(tempPath)) {
+            if (Directory.Exists(tempPath))
                 Directory.Move(
                     tempPath,
                     remoteDir
                 );
-            }
+            return true;
+        }
+
+        private static string GetTempDirectoryPath(string original) {
+            var info = new DirectoryInfo(original);
+            return Path.Combine(
+                info.Parent.FullName,
+                "_" + info.Name
+            );
         }
 
     }
