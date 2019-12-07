@@ -2,7 +2,7 @@
 
 namespace SaveDataRelocator2
 {
-    public class DirectoryUtils {
+    public static class DirectoryUtils {
 
         // https://stackoverflow.com/questions/58744/copy-the-entire-contents-of-a-directory-in-c-sharp/55981013#55981013
         public static void DirectoryCopy(string sourceDirName, string destDirName, bool copySubDirs = true) {

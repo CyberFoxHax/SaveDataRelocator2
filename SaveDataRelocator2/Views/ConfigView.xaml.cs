@@ -44,11 +44,11 @@ namespace SaveDataRelocator2.Views
 
         private void ButtonSave_Click(object sender, RoutedEventArgs e) {
             var error = false;
-            if (Path.IsPathRooted(BackupPath.Text) == false) {
+            if (string.IsNullOrEmpty(BackupPath.Text) == false && Path.IsPathRooted(BackupPath.Text) == false) {
                 BackupPath.Text = "";
                 error = true;
             }
-            if (Path.IsPathRooted(GamesPath.Text) == false) {
+            if (string.IsNullOrEmpty(GamesPath.Text) == false && Path.IsPathRooted(GamesPath.Text) == false) {
                 GamesPath.Text = "";
                 error = true;
             }

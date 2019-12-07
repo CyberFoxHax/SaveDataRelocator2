@@ -15,9 +15,19 @@ namespace SaveDataRelocator2.Views
             ListView.Items.Clear();
             ListView.ItemsSource = ConfigManager.LoadAllGameConfigs().Select(p=>new GamesListItemViewModel(p)).ToList();
             ListView.MouseUp += ListView_MouseUp;
+            ListView.PreviewMouseLeftButtonDown += ListView_MouseDown;
+        }
+
+        private bool ListViewDown = false;
+
+        private void ListView_MouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e) {
+            ListViewDown = true;
         }
 
         private void ListView_MouseUp(object sender, System.Windows.Input.MouseButtonEventArgs e) {
+            if (ListViewDown == false)
+                return;
+            ListViewDown = false;
             var listView = sender as ListView;
             if (listView == null)
                 return;

@@ -35,7 +35,15 @@
                     <RowDefinition Height="30*"/>
                     <RowDefinition Height="70*"/>
                 </Grid.RowDefinitions>
-                <TextBlock Grid.Row="0" Text="Save data path:" Foreground="White" FontWeight="Bold" />
+                <TextBlock Grid.Row="0" Text="Save data path: (?)" Foreground="White" FontWeight="Bold">
+                    <TextBlock.ToolTip>
+                        <TextBlock Foreground="Black">
+                            Where does the game save it's data. I can't help much here. But<LineBreak />
+                            there is a list of common locations tagged in the left side of the dialog.<LineBreak />
+                            If you can't find the location, google is your friend.
+                        </TextBlock>
+                    </TextBlock.ToolTip>
+                </TextBlock>
                 <Grid Grid.Row="1" Margin="0,5,0,0">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition/>

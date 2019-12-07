@@ -53,10 +53,12 @@ namespace SaveDataRelocator2.Views
                 return;
 
             var defaults = ConfigManager.LoadGlobalConfig();
-            if (path == defaults.GamesDefaultPath)
-                return;
-            if (path.Contains(defaults.GamesDefaultPath))
+            if(defaults != null && string.IsNullOrEmpty(defaults.GamesDefaultPath) == false) {
+                if (path == defaults.GamesDefaultPath)
+                    return;
+                if (path.Contains(defaults.GamesDefaultPath))
                 path = path.Replace(defaults.GamesDefaultPath+"\\", "");
+            }
 
             ExecutablePath.Text = path;
         }
@@ -67,10 +69,12 @@ namespace SaveDataRelocator2.Views
                 return;
 
             var defaults = ConfigManager.LoadGlobalConfig();
-            if (path == defaults.BackupDefaultPath)
-                return;
-            if (path.Contains(defaults.BackupDefaultPath))
-                path = path.Replace(defaults.BackupDefaultPath+"\\", "");
+            if (defaults != null && string.IsNullOrEmpty(defaults.BackupDefaultPath) == false) {
+                if (path == defaults.BackupDefaultPath)
+                    return;
+                if (path.Contains(defaults.BackupDefaultPath))
+                    path = path.Replace(defaults.BackupDefaultPath + "\\", "");
+            }
 
             BackupDataPath.Text = path;
         }
