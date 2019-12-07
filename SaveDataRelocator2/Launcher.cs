@@ -24,11 +24,13 @@ namespace SaveDataRelocator2
             if (Relocator.CopyBackupToRemote(config) == false)
                 return;
             var localDir = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+            var processDir = Path.GetDirectoryName(exec);
+            //System.Environment.CurrentDirectory = processDir;
             var process = new Process {
                 StartInfo = {
                     FileName = exec,
-                    WorkingDirectory = localDir,
-                    Domain = localDir,
+                    WorkingDirectory = processDir,
+                    Domain = processDir,
                     UseShellExecute = true
                 }
             };
