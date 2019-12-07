@@ -15,6 +15,7 @@ namespace SaveDataRelocator2.Views
                 SaveDataPath.Text = "";
                 BackupDataPath.Text = "";
                 ExecutablePath.Text = "";
+                ShortcutPath.Text = "";
             }
             Loaded += OnLoaded;
             ButtonDelete.Click += ButtonDelete_Click;
@@ -44,6 +45,7 @@ namespace SaveDataRelocator2.Views
                     missing.Add(shortcutPath);
                     continue;
                 }
+                ShortcutPath.Text = shortcutPath;
                 var shell = new IWshRuntimeLibrary.WshShell();
                 var shortcut = (IWshRuntimeLibrary.IWshShortcut)shell.CreateShortcut(shortcutPath);
                 if (shortcut.Arguments == "-launch " + _dataModel.Filename) {
