@@ -111,6 +111,20 @@
                     </Style>
                 </Button.Resources>
             </Button>
+            <Button x:Name="ButtonBackup" Margin="5,10,0,0" HorizontalAlignment="Left" Content="Backup" Background="{StaticResource GreenBrush}" Foreground="White" FontSize="20" Padding="10,5" BorderBrush="{x:Null}" BorderThickness="0">
+                <Button.Resources>
+                    <Style TargetType="Border">
+                        <Setter Property="CornerRadius" Value="5" />
+                    </Style>
+                </Button.Resources>
+            </Button>
+            <Button x:Name="ButtonRestore" Margin="5,10,0,0" HorizontalAlignment="Left" Content="Restore" Background="{StaticResource GreenBrush}" Foreground="White" FontSize="20" Padding="10,5" BorderBrush="{x:Null}" BorderThickness="0">
+                <Button.Resources>
+                    <Style TargetType="Border">
+                        <Setter Property="CornerRadius" Value="5" />
+                    </Style>
+                </Button.Resources>
+            </Button>
         </StackPanel>
     </StackPanel>
 </UserControl>

@@ -6,7 +6,7 @@
         xmlns:views="clr-namespace:SaveDataRelocator2.Views"
         mc:Ignorable="d"
         Background="#222"
-        Title="SaveDataRelocator2" Height="480" Width="720">
+        Title="SaveDataRelocator2" Height="480" Width="744.59">
     <Window.Resources>
         <Style TargetType="TextBlock">
             <Setter Property="Foreground" Value="White" />

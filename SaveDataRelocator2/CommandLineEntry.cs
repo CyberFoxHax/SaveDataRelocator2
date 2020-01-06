@@ -6,7 +6,7 @@ namespace SaveDataRelocator2 {
         public static void Entry(string[] args) {
             ConfigManager.Initialize();
 
-            if (args.Length > 1 && args.Length % 2 == 0) {
+            if (args.Length > 1 && string.IsNullOrEmpty(args[1])) {
                 if (Debugger.IsAttached)
                     throw new Exception("Invalid arguments");
                 else

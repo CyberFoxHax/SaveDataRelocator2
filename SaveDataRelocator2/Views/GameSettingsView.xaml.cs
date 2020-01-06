@@ -21,6 +21,18 @@ namespace SaveDataRelocator2.Views
             ButtonBackupLocationBrowse.Click += ButtonBackupLocationBrowse_Click;
             ButtonExecutablePathBrowse.Click += ButtonExecutablePathBrowse_Click;
             ButtonSaveDataPathBrowse.Click += ButtonSaveDataPathBrowse_Click;
+            ButtonBackup.Click += ButtonBackup_Click;
+            ButtonRestore.Click += ButtonRestore_Click;
+        }
+
+        private void ButtonRestore_Click(object sender, RoutedEventArgs e) {
+            GuiToData();
+            Relocator.CopyBackupToRemote(_dataModel);
+        }
+
+        private void ButtonBackup_Click(object sender, RoutedEventArgs e) {
+            GuiToData();
+            Relocator.CopyRemoteToBackup(_dataModel);
         }
 
         private void ButtonSaveDataPathBrowse_Click(object sender, RoutedEventArgs e) {
